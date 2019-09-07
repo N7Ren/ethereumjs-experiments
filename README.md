@@ -1,6 +1,6 @@
 # ethereumjs-experiments
 
-Some Experiments with the ethereumjs library.
+Some experiments with the ethereumjs library.
 
 References:
 - [1] https://github.com/ethereumjs/merkle-patricia-tree/issues/32#issuecomment-363654149
