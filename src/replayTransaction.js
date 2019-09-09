@@ -5,7 +5,7 @@ const Trie = require('merkle-patricia-tree/secure')
 const VM = require('ethereumjs-vm').default
 
 const chain = 'ropsten'
-const db = level('/Volumes/2nd/geth/ethereum/geth/chaindata') // path to (ropsten) geth db
+const db = level('/Volumes/2nd/geth/ethereum/geth/chaindata') // path to geth database
 const address = '0x7ac337474ca82e0f324fbbe8493f175e0f681188' // random ropsten contract
 const blockNumber = 19693
 

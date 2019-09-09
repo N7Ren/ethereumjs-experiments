@@ -1,13 +1,13 @@
 const level = require('level')
 const rlp = require('rlp')
-const utils = require('ethereumjs-util')
+const ethUtils = require('ethereumjs-util')
 
 const Blockchain = require('ethereumjs-blockchain').default
 const Trie = require('merkle-patricia-tree/secure')
 const Account = require('ethereumjs-account').default
-const BN = utils.BN
+const BN = ethUtils.BN
 
-const db = level('/Volumes/2nd/geth/ethereum/geth/chaindata') // path to (ropsten) geth db
+const db = level('/Volumes/2nd/geth/ethereum/geth/chaindata') // path to geth database
 const address = '0x7ac337474ca82e0f324fbbe8493f175e0f681188' // random ropsten contract
 const blockNumber = 19693
 
@@ -30,10 +30,10 @@ bc.getBlock(
             const storageRoot = acc.stateRoot
 
             console.log('Account fields: ')
-            console.log('nonce: ' + utils.bufferToInt(acc.nonce))
+            console.log('nonce: ' + ethUtils.bufferToInt(acc.nonce))
             console.log('balance: ' + new BN(acc.balance))
-            console.log('storageRoot: ' + utils.bufferToHex(storageRoot))
-            console.log('codeHash: ' + utils.bufferToHex(acc.codeHash))
+            console.log('storageRoot: ' + ethUtils.bufferToHex(storageRoot))
+            console.log('codeHash: ' + ethUtils.bufferToHex(acc.codeHash))
             console.log()
 
             console.log('Storage trie contents for account: ')
@@ -42,8 +42,8 @@ bc.getBlock(
 
             storageTrie.createReadStream()
               .on('data', function (data) {
-                console.log('key: ' + utils.bufferToHex(data.key))
-                console.log('value: ' + utils.bufferToHex(rlp.decode(data.value)))
+                console.log('key: ' + ethUtils.bufferToHex(data.key))
+                console.log('value: ' + ethUtils.bufferToHex(rlp.decode(data.value)))
               })
               .on('end', function () {
                 console.log('Done reading storage trie.')
