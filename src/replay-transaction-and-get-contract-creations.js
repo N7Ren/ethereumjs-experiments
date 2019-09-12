@@ -1,4 +1,5 @@
 const level = require('level')
+const ethUtils = require('ethereumjs-util')
 
 const Blockchain = require('ethereumjs-blockchain').default
 const Trie = require('merkle-patricia-tree/secure')
@@ -6,10 +7,9 @@ const VM = require('ethereumjs-vm').default
 
 const db = level('/Volumes/2nd/geth/ethereum/geth/chaindata') // path to geth database
 const chain = 'ropsten'
-const address = '0x7ac337474ca82e0f324fbbe8493f175e0f681188' // random ropsten contract
-const blockNumber = 19693
+const blockNumber = 19460
 
-console.log(`Getting information for Account ${address} at block number: ${blockNumber}`)
+console.log(`Getting information at block number: ${blockNumber}`)
 console.log()
 
 const bc = new Blockchain({ db: db })
@@ -29,6 +29,12 @@ async function start () {
       state: parentTrie,
       blockchain: bc,
       chain: chain
+    })
+
+    // listen to newContract event
+    vm.on('newContract', (contract) => {
+      console.log(`${ethUtils.bufferToHex(contract.address)} was created`)
+      console.log()
     })
 
     const txResult = await vm.runTx({ block: block, tx: tx, skipNonce: true, skipBalance: true })
